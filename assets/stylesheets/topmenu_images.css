@@ -1,0 +1,22 @@
+
+#top-menu a.tasks-incoming {
+	padding-left:		20px;
+	background-image:	url(../images/incoming.png);
+	background-repeat:	no-repeat;
+	background-position:	left center;
+}
+
+#top-menu a.tasks-outcoming {
+	padding-left:		20px;
+	background-image:	url(../images/outcoming.png);
+	background-repeat:	no-repeat;
+	background-position:	left center;
+}
+
+#top-menu a.tasks-control {
+	padding-left:		20px;
+	background-image:	url(../../../images/fav.png);
+	background-repeat:	no-repeat;
+	background-size:	16px 14px;
+}
+
