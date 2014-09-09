@@ -15,6 +15,15 @@ Redmine::Plugin.register :redmine_topmenu_tasks do
 	menu :top_menu, :tasks_incoming,  {:controller => 'issues', :action => 'index', :query_id => 10}, :caption => "Поручено мне",	:if => Proc.new { User.current.logged? }
 	menu :top_menu, :tasks_outcoming, {:controller => 'issues', :action => 'index', :query_id => 56}, :caption => "Я поручил",	:if => Proc.new { User.current.logged? }
 	menu :top_menu, :tasks_control,   {:controller => 'issues', :action => 'index', :query_id => 59}, :caption => "На контроле",	:if => Proc.new { User.current.logged? }
-	menu :top_menu, :new_issue, { :controller => 'issues', :action => 'new', :copy_from => nil }, :caption => :label_issue_new,	:if => Proc.new { User.current.logged? }
+	menu :top_menu, :new_issue, { :controller => 'issues', :action => 'new', :copy_from => nil, :project_id => 'anonymous' }, :param => :project_id, :caption => :label_issue_new,	:if => Proc.new { User.current.logged? }
 end
 
+class MenuListener < Redmine::Hook::ViewListener
+	def view_layouts_base_html_head(context)
+		menu = Redmine::MenuManager.map(:top_menu).find(:new_issue)
+		def menu.url
+			{ :controller => 'issues', :action => 'new', :copy_from => nil, :project_id => User.current.login }
+		end
+		nil
+	end
+end
